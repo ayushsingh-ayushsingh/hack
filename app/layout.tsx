@@ -1,11 +1,10 @@
+import { text } from "@/app/fonts"
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import { SocketProvider } from "@/components/SocketProvider";
-import { Skiper26, ThemeToggleButton } from "@/components/ui/blur-mode-toggle";
-import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+import { SocketProvider } from "@/components/SocketProvider";
+import { ThemeToggleButton } from "@/components/ui/blur-mode-toggle";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Hackathon Project",
@@ -19,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={text.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -28,7 +27,7 @@ export default function RootLayout({
         >
           <SocketProvider>{children}</SocketProvider>
           <div className="fixed bottom-4 right-4">
-            <ThemeToggleButton variant="circle" start="bottom-right" blur={true} />
+            {/* <ThemeToggleButton variant="circle" start="bottom-right" blur={true} /> */}
           </div>
         </ThemeProvider>
       </body>

@@ -16,15 +16,27 @@ app.prepare().then(() => {
     const io = new Server(httpServer);
 
     io.on("connection", (socket) => {
-        console.log("a user connected");
+        console.log("a user connected", socket.id);
+
+        socket.on("joinRoom", (room) => {
+            socket.join(room);
+            console.log(`User ${socket.id} joined room: ${room}`);
+            io.to(room).emit("message", `User ${socket.id} has joined the room.`);
+        });
+
+        socket.on("leaveRoom", (room) => {
+            socket.leave(room);
+            console.log(`User ${socket.id} left room: ${room}`);
+            io.to(room).emit("message", `User ${socket.id} has left the room.`);
+        });
 
         socket.on("disconnect", () => {
             console.log("user disconnected");
         });
 
-        socket.on("message", (msg) => {
-            console.log("message: " + msg);
-            io.emit("message", msg);
+        socket.on("message", (data: { room: string; message: string }) => {
+            console.log(`message in room ${data.room}: ${data.message}`);
+            io.to(data.room).emit("message", JSON.stringify(data.message));
         });
     });
 
