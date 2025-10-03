@@ -9,59 +9,97 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { Loader2, User2 } from "lucide-react";
+import { Suspense } from "react";
+import Link from "next/link";
+import LogoutButton from "@/components/layouts/logout-button";
+import EditProfile from "@/components/edit-profile";
 
-import { RiSettingsLine, RiTeamLine, RiLogoutBoxLine } from "@remixicon/react";
+export async function AvatarComponent() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
 
-export default function UserDropdown() {
+  if (!session) {
+    redirect("/login")
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-auto p-0 hover:bg-transparent">
-          <Avatar className="size-8">
-            <AvatarImage
-              src="https://raw.githubusercontent.com/origin-space/origin-images/refs/heads/main/exp1/user_sam4wh.png"
-              width={32}
-              height={32}
-              alt="Profile image"
-            />
-            <AvatarFallback>KK</AvatarFallback>
-          </Avatar>
-        </Button>
+        <Button variant="ghost" className="h-auto p-0 hover:bg-transparent rounded-full cursor-pointer">
+          <div>
+            {
+              session ?
+                <Avatar className="size-8">
+                  {
+                    session?.user?.image ?
+                      <AvatarImage
+                        src={session.user.image}
+                        width={32}
+                        height={32}
+                        className="object-cover"
+                        alt="Profile image"
+                      />
+                      :
+                      <AvatarFallback>
+                        <User2 />
+                      </AvatarFallback>
+                  }
+                </Avatar>
+                :
+                <Button className="rounded-full hidden sm:inline-flex" asChild>
+                  <Link href={"/signup"}>
+                    Sign In
+                  </Link>
+                </Button>
+            }
+          </div></Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="max-w-64" align="end">
         <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="truncate text-sm font-medium text-foreground">
-            Keith Kennedy
+            {
+              session.user.name
+            }
           </span>
           <span className="truncate text-xs font-normal text-muted-foreground">
-            k.kennedy@originui.com
+            {
+              session.user.email
+            }
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <RiSettingsLine
-              size={16}
-              className="opacity-60"
-              aria-hidden="true"
+          <DropdownMenuItem asChild>
+            <EditProfile
+              imageURL={session.user.image}
+              userEmail={session.user.email}
+              userName={session.user.name}
+              className="w-full"
             />
-            <span>Account settings</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <RiTeamLine size={16} className="opacity-60" aria-hidden="true" />
-            <span>Affiliate area</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RiLogoutBoxLine
-            size={16}
-            className="opacity-60"
-            aria-hidden="true"
-          />
-          <span>Sign out</span>
+        <DropdownMenuItem asChild>
+          <LogoutButton className="w-full" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+}
+
+export default function UserDropdown() {
+  return (
+    <Suspense fallback={
+      <div>
+        <Loader2 className="animate-spin size-8" />
+      </div>
+    }>
+      <AvatarComponent />
+    </Suspense >
   );
 }

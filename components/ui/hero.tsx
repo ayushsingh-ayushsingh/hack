@@ -6,6 +6,7 @@ import LogoCloud from "./logo-cloud";
 import BlurText from "@/components/BlurText";
 import { Navbar } from "@/components/navbar";
 import Ballpit from '@/components/Ballpit';
+import Link from "next/link";
 
 function HeroHeading() {
   return (
@@ -21,7 +22,7 @@ function HeroHeading() {
 
 const Hero = () => {
   return (
-    <div className="relative min-h-[100vh] flex flex-col items-center justify-center py-20 px-6 overflow-hidden">
+    <div id="page-top" className="relative min-h-[100vh] flex flex-col items-center justify-center py-20 px-6 overflow-hidden">
       {/* Radial Background */}
       <div className="bg-radial from-background/80 to-transparent absolute inset-0 -z-[8]" />
 
@@ -31,7 +32,7 @@ const Hero = () => {
           count={50}
           gravity={0.1}
           friction={0.9975}
-          wallBounce={0.95}
+          wallBounce={0.5}
           followCursor={false}
         />
       </div>
@@ -59,8 +60,11 @@ const Hero = () => {
               <Button
                 size="lg"
                 className="w-full sm:w-auto rounded-full text-base"
+                asChild
               >
-                Get Started <ArrowUpRight className="!h-5 !w-5" />
+                <Link href={"/login"} target="_blank">
+                  Get Started <ArrowUpRight className="!h-5 !w-5" />
+                </Link>
               </Button>
               <Button
                 variant="outline"

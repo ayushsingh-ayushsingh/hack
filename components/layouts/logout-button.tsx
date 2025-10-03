@@ -1,13 +1,18 @@
 "use client"
 
 import React from 'react'
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { toast } from "sonner"
 import { Button } from '@/components/ui/button';
 import { LogOut } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
+import { cn } from '@/lib/utils';
 
-export default function LogoutButton() {
+export default function LogoutButton({
+    className
+}: {
+    className?: string
+}) {
     const handleSignOut = async () => {
         try {
             await authClient.signOut();
@@ -46,9 +51,14 @@ export default function LogoutButton() {
         }
         setIsLoading(false);
     }
+    
     return (
-        <Button onClick={onLogoutClick} disabled={isLoading}>
-            {isLoading ? "Logging out..." : "Logout"}<LogOut className='size-4' />
+        <Button
+            onClick={onLogoutClick}
+            disabled={isLoading}
+            className={cn("flex items-center", className)}
+        >
+            {isLoading ? "Logging out..." : "Logout"}<LogOut className='size-3' />
         </Button>
     )
 }

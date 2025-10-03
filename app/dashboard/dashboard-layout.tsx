@@ -4,7 +4,7 @@ import FeedbackDialog from "@/components/feedback-dialog";
 import UserDropdown from "@/components/user-dropdown";
 import { Separator } from "@/components/ui/separator";
 import { RiScanLine } from "@remixicon/react";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -14,6 +14,7 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import { Divide } from "lucide-react";
 
 interface DashboardLayoutProps {
     children: ReactNode;

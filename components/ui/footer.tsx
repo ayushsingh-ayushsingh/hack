@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import {
+  ArrowUp,
   DribbbleIcon,
   GithubIcon,
   TwitchIcon,
@@ -54,10 +55,16 @@ const Footer = () => {
 
           {/* Subscribe Newsletter */}
           <div className="max-w-xs w-full">
-            <h6 className="font-semibold">Stay up to date</h6>
+            <h6 className="font-light text-xl">
+              A <span className="font-bold">Hackathon</span> Project
+            </h6>
             <form className="mt-6 flex items-center gap-2">
-              <Input type="email" placeholder="Enter your email" />
-              <Button>Subscribe</Button>
+              <span>Back to the beginning.</span>
+              <Button asChild className="rounded-full ml-12">
+                <a href={"#page-top"}>
+                  Top<ArrowUp />
+                </a>
+              </Button>
             </form>
           </div>
         </div>

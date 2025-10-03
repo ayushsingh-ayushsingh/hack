@@ -26,21 +26,24 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { updateUserName, updateUserImage } from "./profile-edit";
+import { cn } from "../lib/utils";
+import { updateUserName, updateUserImage } from "@/lib/profile-edit";
 
-export default function Component({
+export default function EditProfileDialog({
     imageURL,
     userName,
     userEmail,
+    className,
 }: {
     imageURL: string | null | undefined;
     userName: string;
     userEmail: string;
+    className?: string;
 }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Edit profile</Button>
+                <Button variant="outline" className={cn(className)}>Edit profile</Button>
             </DialogTrigger>
             <DialogContent className="flex flex-col gap-0 overflow-y-visible p-0 sm:max-w-sm [&>button:last-child]:top-3.5">
                 <DialogHeader className="contents space-y-0 text-left">

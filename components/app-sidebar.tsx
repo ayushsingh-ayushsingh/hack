@@ -55,8 +55,8 @@ const data = {
           icon: RiScanLine,
         },
         {
-          title: "Insights",
-          url: "#",
+          title: "Form",
+          url: "/insights",
           icon: RiBardLine,
         },
         {
@@ -108,7 +108,7 @@ const data = {
       items: [
         {
           title: "Home",
-          url: "/home",
+          url: "/",
           icon: RiHome2Line,
         },
       ],

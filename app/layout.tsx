@@ -1,12 +1,13 @@
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import NextTopLoader from 'nextjs-toploader';
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
 import "./globals.css";
 
-const fontSans = Inter({
+const fontSans = Montserrat({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: "400"
 });
 
 export default function RootLayout({
@@ -20,7 +21,7 @@ export default function RootLayout({
         <NextTopLoader
           color="#a48fff"
           initialPosition={0.08}
-          crawlSpeed={200}
+          crawlSpeed={300}
           crawl={true}
           showSpinner={false}
           showAtBottom={false}
