@@ -570,8 +570,8 @@ export const useThemeToggle = ({
 export const ThemeToggleButton = ({
     className = "",
     variant = "circle",
-    start = "center",
-    blur = false,
+    start = "top-center",
+    blur = true,
     gifUrl = "",
 }: {
     className?: string;
@@ -591,7 +591,7 @@ export const ThemeToggleButton = ({
         <button
             type="button"
             className={cn(
-                "size-10 cursor-pointer rounded-full bg-black p-0 transition-all duration-300 active:scale-95",
+                "size-10 cursor-pointer rounded-full p-0 transition-all duration-300 active:scale-95",
                 className,
             )}
             onClick={toggleTheme}
@@ -601,23 +601,10 @@ export const ThemeToggleButton = ({
             <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <motion.g
                     animate={{ rotate: isDark ? -180 : 0 }}
-                    transition={{ ease: "easeInOut", duration: 0.5 }}
+                    transition={{ ease: "easeInOut", duration: 0.7 }}
                 >
-                    <path
-                        d="M120 67.5C149.25 67.5 172.5 90.75 172.5 120C172.5 149.25 149.25 172.5 120 172.5"
-                        fill="white"
-                    />
-                    <path
-                        d="M120 67.5C90.75 67.5 67.5 90.75 67.5 120C67.5 149.25 90.75 172.5 120 172.5"
-                        fill="black"
-                    />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.9967C6.47715 21.9967 2 17.5196 2 11.9967C2 6.47386 6.47715 1.9967 12 1.9967C17.5228 1.9967 22 6.47386 22 11.9967C22 17.5196 17.5228 21.9967 12 21.9967ZM12 19.9967C16.4183 19.9967 20 16.415 20 11.9967C20 7.57843 16.4183 3.9967 12 3.9967C7.58172 3.9967 4 7.57843 4 11.9967C4 16.415 7.58172 19.9967 12 19.9967ZM12 17.9967V5.9967C15.3137 5.9967 18 8.683 18 11.9967C18 15.3104 15.3137 17.9967 12 17.9967Z"></path></svg>
                 </motion.g>
-                <motion.path
-                    animate={{ rotate: isDark ? 180 : 0 }}
-                    transition={{ ease: "easeInOut", duration: 0.5 }}
-                    d="M120 3.75C55.5 3.75 3.75 55.5 3.75 120C3.75 184.5 55.5 236.25 120 236.25C184.5 236.25 236.25 184.5 236.25 120C236.25 55.5 184.5 3.75 120 3.75ZM120 214.5V172.5C90.75 172.5 67.5 149.25 67.5 120C67.5 90.75 90.75 67.5 120 67.5V25.5C172.5 25.5 214.5 67.5 214.5 120C214.5 172.5 172.5 214.5 120 214.5Z"
-                    fill="white"
-                />
             </svg>
         </button>
     );

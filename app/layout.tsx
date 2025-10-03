@@ -1,15 +1,13 @@
-import { text } from "@/app/fonts"
-import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import NextTopLoader from 'nextjs-toploader';
+import { ThemeProvider } from "@/components/ui/theme-provider";
+
 import "./globals.css";
 
-import { SocketProvider } from "@/components/SocketProvider";
-import { ThemeToggleButton } from "@/components/ui/blur-mode-toggle";
-import { ThemeProvider } from "@/components/theme-provider";
-
-export const metadata: Metadata = {
-  title: "Hackathon Project",
-  description: "Hackathon Project",
-};
+const fontSans = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export default function RootLayout({
   children,
@@ -18,17 +16,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={text.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SocketProvider>{children}</SocketProvider>
-          <div className="fixed bottom-4 right-4">
-            {/* <ThemeToggleButton variant="circle" start="bottom-right" blur={true} /> */}
-          </div>
+      <body className={`${fontSans.variable} font-sans antialiased`}>
+        <NextTopLoader
+          color="#a48fff"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          crawl={true}
+          showSpinner={false}
+          showAtBottom={false}
+          height={2}
+          easing="ease"
+          speed={200}
+          zIndex={1600}
+        />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
         </ThemeProvider>
       </body>
     </html>

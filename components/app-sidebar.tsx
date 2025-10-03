@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { SearchForm } from "@/components/search-form";
 import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
@@ -25,7 +24,9 @@ import {
   RiSettings3Line,
   RiLeafLine,
   RiLogoutBoxLine,
+  RiHome2Line
 } from "@remixicon/react";
+import Link from "next/link";
 
 // This is sample data.
 const data = {
@@ -46,11 +47,11 @@ const data = {
   navMain: [
     {
       title: "Sections",
-      url: "#",
+      url: "/dashboard",
       items: [
         {
           title: "Dashboard",
-          url: "#",
+          url: "/",
           icon: RiScanLine,
         },
         {
@@ -60,9 +61,8 @@ const data = {
         },
         {
           title: "Contacts",
-          url: "#",
+          url: "/contacts",
           icon: RiUserFollowLine,
-          isActive: true,
         },
         {
           title: "Tools",
@@ -88,17 +88,28 @@ const data = {
     },
     {
       title: "Other",
-      url: "#",
+      url: "/dashboard",
       items: [
         {
           title: "Settings",
-          url: "#",
+          url: "/settings",
           icon: RiSettings3Line,
         },
         {
           title: "Help Center",
           url: "#",
           icon: RiLeafLine,
+        },
+      ],
+    },
+    {
+      title: "Homepage",
+      url: "http://localhost:3000",
+      items: [
+        {
+          title: "Home",
+          url: "/home",
+          icon: RiHome2Line,
         },
       ],
     },
@@ -111,10 +122,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
         <hr className="border-t border-border mx-2 -mt-px" />
-        <SearchForm className="mt-3" />
       </SidebarHeader>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel className="uppercase text-muted-foreground/60">
@@ -122,23 +131,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarGroupLabel>
             <SidebarGroupContent className="px-2">
               <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
+                {item.items.map((innerItem) => (
+                  <SidebarMenuItem key={innerItem.title}>
                     <SidebarMenuButton
                       asChild
                       className="group/menu-button font-medium gap-3 h-9 rounded-md bg-gradient-to-r hover:bg-transparent hover:from-sidebar-accent hover:to-sidebar-accent/40 data-[active=true]:from-primary/20 data-[active=true]:to-primary/5 [&>svg]:size-auto"
-                      isActive={item.isActive}
                     >
-                      <a href={item.url}>
-                        {item.icon && (
-                          <item.icon
+                      <Link href={item.url + innerItem.url}>
+                        {innerItem.icon && (
+                          <innerItem.icon
                             className="text-muted-foreground/60 group-data-[active=true]/menu-button:text-primary"
                             size={22}
                             aria-hidden="true"
                           />
                         )}
-                        <span>{item.title}</span>
-                      </a>
+                        <span>{innerItem.title}</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
